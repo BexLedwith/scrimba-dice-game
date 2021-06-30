@@ -16,6 +16,33 @@ const p2Turn = "Player 2 Turn";
 
 message.textContent = p1Turn;
 
+function btnVisibilityToggle() {
+  rollBtn.style.display = "none";
+  resetBtn.style.display = "block";
+}
+
+function scoreSync() {
+  p1Score.textContent = player1Score;
+  p2Score.textContent = player2Score;
+}
+
+function diceClass() {
+  p2Dice.classList.remove("active");
+  p1Dice.classList.add("active");
+}
+
+function reset() {
+  player1Score = 0;
+  player2Score = 0;
+  scoreSync();
+  player1Turn = true;
+  message.textContent = p1Turn;
+  p1Dice.textContent = "-";
+  p2Dice.textContent = "-";
+  rollBtn.style.display = "block";
+  resetBtn.style.display = "none";
+}
+
 // event listeners
 // 1. Find out which players turn it is
 
@@ -34,7 +61,7 @@ rollBtn.addEventListener("click", function () {
   player1Turn
     ? ((p1Dice.textContent = diceRoll),
       (player1Score += diceRoll),
-      (p1Score.textContent = player1Score),
+      scoreSync(),
       p1Dice.classList.remove("active"),
       p2Dice.classList.add("active"),
       player1Score >= 20
@@ -43,9 +70,8 @@ rollBtn.addEventListener("click", function () {
         : (message.textContent = p2Turn))
     : ((p2Dice.textContent = diceRoll),
       (player2Score += diceRoll),
-      (p2Score.textContent = player2Score),
-      p2Dice.classList.remove("active"),
-      p1Dice.classList.add("active"),
+      scoreSync(),
+      diceClass(),
       player2Score >= 20
         ? ((message.textContent = "Player 2 has won! 🥳"),
           btnVisibilityToggle())
@@ -53,7 +79,10 @@ rollBtn.addEventListener("click", function () {
   player1Turn = !player1Turn;
 });
 
-function btnVisibilityToggle() {
-  rollBtn.style.display = "none";
-  resetBtn.style.display = "block";
-}
+// 1. Hook a click event listener up with the Reset Button
+// 2. Create a reset() function that resets the game
+// 3. Invoke the reset() function when the Reset Button is clicked
+
+resetBtn.addEventListener("click", function () {
+  reset();
+});

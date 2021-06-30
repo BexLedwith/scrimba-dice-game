@@ -13,8 +13,10 @@ const rollBtn = document.getElementById("rollBtn");
 const resetBtn = document.getElementById("resetBtn");
 const p1Turn = "Player 1 Turn";
 const p2Turn = "Player 2 Turn";
+const p1Name = document.getElementById("p1-name");
+const p2Name = document.getElementById("p2-name");
 
-message.textContent = p1Turn;
+message.textContent = "Player 1 turn";
 
 function btnVisibilityToggle() {
   rollBtn.style.display = "none";
@@ -91,4 +93,8 @@ resetBtn.addEventListener("click", function () {
 // modal button
 document.getElementById("close-modal").addEventListener("click", function () {
   document.getElementById("overlay").style.display = "none";
+  const player1Name = document.getElementById("player-1-name").value;
+  const player2Name = document.getElementById("player-2-name").value;
+  p1Name.textContent = player1Name;
+  p2Name.textContent = player2Name;
 });

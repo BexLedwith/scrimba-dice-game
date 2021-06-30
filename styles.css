@@ -39,7 +39,7 @@ body {
   background-color: var(--color-3);
   margin: 0 auto;
   font-size: 80px;
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: center;
 }

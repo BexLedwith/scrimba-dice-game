@@ -76,7 +76,7 @@ button:focus {
 
 /* modal */
 #close-modal {
-  background: #800e8f;
+  background: var(--color-5);
   color: white;
   padding: 15px;
   font-size: 20px;
@@ -86,6 +86,12 @@ button:focus {
 .modal {
   position: relative;
   top: 30%;
+}
+
+.player-names input {
+  height: 1.2rem;
+  background: var(--color-3);
+  border-radius: 5px;
 }
 
 /* overlay */

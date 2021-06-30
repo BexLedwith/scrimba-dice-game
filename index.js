@@ -13,6 +13,8 @@ const rollBtn = document.getElementById("rollBtn");
 const resetBtn = document.getElementById("resetBtn");
 const p1Name = document.getElementById("p1-name");
 const p2Name = document.getElementById("p2-name");
+const p1Local = localStorage.getItem("p1");
+const p2Local = localStorage.getItem("p2");
 
 function btnVisibilityToggle() {
   rollBtn.style.display = "none";
@@ -39,6 +41,7 @@ function reset() {
   rollBtn.style.display = "block";
   resetBtn.style.display = "none";
   document.getElementById("overlay").style.display = "block";
+  localStorage.clear();
 }
 
 // event listeners
@@ -63,17 +66,17 @@ rollBtn.addEventListener("click", function () {
       p1Dice.classList.remove("active"),
       p2Dice.classList.add("active"),
       player1Score >= 20
-        ? ((message.textContent = "Player 1 has won! 🥳"),
+        ? ((message.textContent = `${p1Local} has won! 🥳`),
           btnVisibilityToggle())
-        : (message.textContent = "Player 2 Turn"))
+        : (message.textContent = `${p2Local}'s Turn`))
     : ((p2Dice.textContent = diceRoll),
       (player2Score += diceRoll),
       scoreSync(),
       diceClass(),
       player2Score >= 20
-        ? ((message.textContent = "Player 2 has won! 🥳"),
+        ? ((message.textContent = `${p2Local} has won! 🥳`),
           btnVisibilityToggle())
-        : (message.textContent = "player 1 tunr"));
+        : (message.textContent = `${p1Local}'s Turn`));
   player1Turn = !player1Turn;
 });
 
@@ -92,5 +95,7 @@ document.getElementById("close-modal").addEventListener("click", function () {
   const player2Name = document.getElementById("player-2-name").value;
   p1Name.textContent = player1Name;
   p2Name.textContent = player2Name;
+  localStorage.setItem("p1", player1Name);
+  localStorage.setItem("p2", player2Name);
   message.textContent = `${player1Name}'s Turn`;
 });

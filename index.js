@@ -41,6 +41,7 @@ function reset() {
   p2Dice.textContent = "-";
   rollBtn.style.display = "block";
   resetBtn.style.display = "none";
+  document.getElementById("overlay").style.display = "block";
 }
 
 // event listeners
@@ -85,4 +86,9 @@ rollBtn.addEventListener("click", function () {
 
 resetBtn.addEventListener("click", function () {
   reset();
+});
+
+// modal button
+document.getElementById("close-modal").addEventListener("click", function () {
+  document.getElementById("overlay").style.display = "none";
 });

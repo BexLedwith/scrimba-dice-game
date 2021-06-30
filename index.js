@@ -38,9 +38,8 @@ rollBtn.addEventListener("click", function () {
       p1Dice.classList.remove("active"),
       p2Dice.classList.add("active"),
       player1Score >= 20
-        ? ((message.textContent = "Player 1 has won!"),
-          (rollBtn.style.display = "none"),
-          (resetBtn.style.display = "block"))
+        ? ((message.textContent = "Player 1 has won! 🥳"),
+          btnVisibilityToggle())
         : (message.textContent = p2Turn))
     : ((p2Dice.textContent = diceRoll),
       (player2Score += diceRoll),
@@ -48,9 +47,13 @@ rollBtn.addEventListener("click", function () {
       p2Dice.classList.remove("active"),
       p1Dice.classList.add("active"),
       player2Score >= 20
-        ? ((message.textContent = "Player 2 has won!"),
-          (rollBtn.style.display = "none"),
-          (resetBtn.style.display = "block"))
+        ? ((message.textContent = "Player 2 has won! 🥳"),
+          btnVisibilityToggle())
         : (message.textContent = p1Turn));
   player1Turn = !player1Turn;
 });
+
+function btnVisibilityToggle() {
+  rollBtn.style.display = "none";
+  resetBtn.style.display = "block";
+}

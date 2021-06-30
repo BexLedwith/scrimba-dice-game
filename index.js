@@ -26,6 +26,9 @@ message.textContent = p1Turn;
 // Hint: use the .classList.remove() and classlist.add() methods
 // 3. Update the "message" DOM node so that it states who's turn it is
 
+// 1. Check if a player has won. If so, change the message to "Player X has won!"
+// 2. Hide the Roll Dice Button and show the Reset Button. Hint: use display none/block
+
 rollBtn.addEventListener("click", function () {
   const diceRoll = Math.floor(Math.random() * 6) + 1;
   player1Turn
@@ -34,12 +37,20 @@ rollBtn.addEventListener("click", function () {
       (p1Score.textContent = player1Score),
       p1Dice.classList.remove("active"),
       p2Dice.classList.add("active"),
-      (message.textContent = p2Turn))
+      player1Score >= 20
+        ? ((message.textContent = "Player 1 has won!"),
+          (rollBtn.style.display = "none"),
+          (resetBtn.style.display = "block"))
+        : (message.textContent = p2Turn))
     : ((p2Dice.textContent = diceRoll),
       (player2Score += diceRoll),
       (p2Score.textContent = player2Score),
       p2Dice.classList.remove("active"),
       p1Dice.classList.add("active"),
-      (message.textContent = p1Turn));
+      player2Score >= 20
+        ? ((message.textContent = "Player 2 has won!"),
+          (rollBtn.style.display = "none"),
+          (resetBtn.style.display = "block"))
+        : (message.textContent = p1Turn));
   player1Turn = !player1Turn;
 });

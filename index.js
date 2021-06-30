@@ -11,12 +11,8 @@ const p1Score = document.getElementById("player1Scoreboard");
 const p2Score = document.getElementById("player2Scoreboard");
 const rollBtn = document.getElementById("rollBtn");
 const resetBtn = document.getElementById("resetBtn");
-const p1Turn = "Player 1 Turn";
-const p2Turn = "Player 2 Turn";
 const p1Name = document.getElementById("p1-name");
 const p2Name = document.getElementById("p2-name");
-
-message.textContent = "Player 1 turn";
 
 function btnVisibilityToggle() {
   rollBtn.style.display = "none";
@@ -38,7 +34,6 @@ function reset() {
   player2Score = 0;
   scoreSync();
   player1Turn = true;
-  message.textContent = p1Turn;
   p1Dice.textContent = "-";
   p2Dice.textContent = "-";
   rollBtn.style.display = "block";
@@ -70,7 +65,7 @@ rollBtn.addEventListener("click", function () {
       player1Score >= 20
         ? ((message.textContent = "Player 1 has won! 🥳"),
           btnVisibilityToggle())
-        : (message.textContent = p2Turn))
+        : (message.textContent = "Player 2 Turn"))
     : ((p2Dice.textContent = diceRoll),
       (player2Score += diceRoll),
       scoreSync(),
@@ -78,7 +73,7 @@ rollBtn.addEventListener("click", function () {
       player2Score >= 20
         ? ((message.textContent = "Player 2 has won! 🥳"),
           btnVisibilityToggle())
-        : (message.textContent = p1Turn));
+        : (message.textContent = "player 1 tunr"));
   player1Turn = !player1Turn;
 });
 
@@ -97,4 +92,5 @@ document.getElementById("close-modal").addEventListener("click", function () {
   const player2Name = document.getElementById("player-2-name").value;
   p1Name.textContent = player1Name;
   p2Name.textContent = player2Name;
+  message.textContent = `${player1Name}'s Turn`;
 });

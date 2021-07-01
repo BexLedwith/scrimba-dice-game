@@ -49,7 +49,6 @@ function reset() {
   document.getElementById("overlay").style.display = "block";
   p1Local = "";
   p2Local = "";
-  // sessionStorage.clear();
 }
 
 //each player separate diceroll to populate pips on dice
@@ -109,7 +108,6 @@ document.getElementById("close-modal").addEventListener("click", function () {
 // 2. Hide the Roll Dice Button and show the Reset Button. Hint: use display none/block
 
 rollBtn.addEventListener("click", function () {
-  // const diceRoll = Math.floor(Math.random() * 6) + 1;
   player1Turn
     ? (p1DiceRoll(),
       player1Score >= 20

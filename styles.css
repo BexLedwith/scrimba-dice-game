@@ -15,6 +15,7 @@ body {
   font-family: "Roboto", sans-serif;
   height: 100vh;
   color: black;
+  text-align: center;
 }
 
 .container {
@@ -102,6 +103,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   margin: 40px auto 0 auto;
+  transition: transform 0.3s;
 }
 
 #rollBtn {
@@ -112,8 +114,9 @@ button {
   background-color: var(--color-4);
 }
 
-button:focus {
-  outline: none;
+button:focus,
+button:hover {
+  transform: scale(1.1);
 }
 
 #resetBtn {
@@ -155,4 +158,15 @@ button:focus {
   bottom: 0;
   right: 0;
   background: #000;
+}
+
+/* button to go to repo */
+#repo {
+  color: #00ff00;
+  background: #000;
+}
+
+#repo:hover,
+#repo:focus {
+  transform: scale(1.2);
 }

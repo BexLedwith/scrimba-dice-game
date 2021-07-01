@@ -2,6 +2,8 @@
 let player1Score = 0;
 let player2Score = 0;
 let player1Turn = true;
+let p2Local = "";
+let p1Local = "";
 
 // create variables to store references to necessary DOM nodes
 const message = document.getElementById("message");
@@ -13,8 +15,6 @@ const rollBtn = document.getElementById("rollBtn");
 const resetBtn = document.getElementById("resetBtn");
 const p1Name = document.getElementById("p1-name");
 const p2Name = document.getElementById("p2-name");
-let p2Local = "";
-let p1Local = "";
 const pipTemplate = `<span class="pip></span>`;
 
 function btnVisibilityToggle() {
@@ -52,6 +52,7 @@ function reset() {
   // sessionStorage.clear();
 }
 
+//each player separate diceroll to populate pips on dice
 function p1DiceRoll() {
   p1Dice.innerHTML = "";
   const diceRoll = Math.floor(Math.random() * 6) + 1;
@@ -74,6 +75,7 @@ function p2DiceRoll() {
   diceClass1();
 }
 
+//randomize first turn
 function firstTurn() {
   const coinFlip = Math.floor(Math.random() * 2) + 1;
   coinFlip > 1

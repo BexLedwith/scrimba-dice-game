@@ -13,8 +13,8 @@ const rollBtn = document.getElementById("rollBtn");
 const resetBtn = document.getElementById("resetBtn");
 const p1Name = document.getElementById("p1-name");
 const p2Name = document.getElementById("p2-name");
-const p1Local = localStorage.getItem("p1");
-const p2Local = localStorage.getItem("p2");
+const p2Local = sessionStorage.getItem("p2");
+const p1Local = sessionStorage.getItem("p1");
 const pipTemplate = `<span class="pip></span>`;
 
 function btnVisibilityToggle() {
@@ -37,12 +37,36 @@ function reset() {
   player2Score = 0;
   scoreSync();
   player1Turn = true;
-  p1Dice.textContent = "-";
-  p2Dice.textContent = "-";
+  p1Dice.innerHTML = "";
+  p2Dice.innerHTML = "";
   rollBtn.style.display = "block";
   resetBtn.style.display = "none";
+  sessionStorage.clear();
   document.getElementById("overlay").style.display = "block";
-  localStorage.clear();
+}
+
+function p1DiceRoll() {
+  p1Dice.innerHTML = "";
+  const diceRoll = Math.floor(Math.random() * 6) + 1;
+  for (let i = 0; i < diceRoll; i++) {
+    p1Dice.innerHTML += `<span class="pip"></span>`;
+  }
+  player1Score += diceRoll;
+  scoreSync();
+  p1Dice.classList.remove("active");
+  p2Dice.classList.add("active");
+}
+
+function p2DiceRoll() {
+  p2Dice.innerHTML = "";
+  const diceRoll = Math.floor(Math.random() * 6) + 1;
+  for (let i = 0; i < diceRoll; i++) {
+    p2Dice.innerHTML += `<span class="pip"></span>`;
+  }
+  player2Score += diceRoll;
+  scoreSync();
+  p2Dice.classList.remove("active");
+  p1Dice.classList.add("active");
 }
 
 // event listeners
@@ -89,31 +113,7 @@ document.getElementById("close-modal").addEventListener("click", function () {
   const player2Name = document.getElementById("player-2-name").value;
   p1Name.textContent = player1Name;
   p2Name.textContent = player2Name;
-  localStorage.setItem("p1", player1Name);
-  localStorage.setItem("p2", player2Name);
+  sessionStorage.setItem("p1", player1Name);
+  sessionStorage.setItem("p2", player2Name);
   message.textContent = `${player1Name}'s Turn`;
 });
-
-function p1DiceRoll() {
-  p1Dice.innerHTML = "";
-  const diceRoll = Math.floor(Math.random() * 6) + 1;
-  for (let i = 0; i < diceRoll; i++) {
-    p1Dice.innerHTML += `<span class="pip"></span>`;
-  }
-  player1Score += diceRoll;
-  scoreSync();
-  p1Dice.classList.remove("active");
-  p2Dice.classList.add("active");
-}
-
-function p2DiceRoll() {
-  p2Dice.innerHTML = "";
-  const diceRoll = Math.floor(Math.random() * 6) + 1;
-  for (let i = 0; i < diceRoll; i++) {
-    p2Dice.innerHTML += `<span class="pip"></span>`;
-  }
-  player2Score += diceRoll;
-  scoreSync();
-  p2Dice.classList.remove("active");
-  p1Dice.classList.add("active");
-}

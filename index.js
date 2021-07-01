@@ -15,6 +15,7 @@ const p1Name = document.getElementById("p1-name");
 const p2Name = document.getElementById("p2-name");
 const p1Local = localStorage.getItem("p1");
 const p2Local = localStorage.getItem("p2");
+const pipTemplate = `<span class="pip></span>`;
 
 function btnVisibilityToggle() {
   rollBtn.style.display = "none";
@@ -58,21 +59,14 @@ function reset() {
 // 2. Hide the Roll Dice Button and show the Reset Button. Hint: use display none/block
 
 rollBtn.addEventListener("click", function () {
-  const diceRoll = Math.floor(Math.random() * 6) + 1;
+  // const diceRoll = Math.floor(Math.random() * 6) + 1;
   player1Turn
-    ? ((p1Dice.textContent = diceRoll),
-      (player1Score += diceRoll),
-      scoreSync(),
-      p1Dice.classList.remove("active"),
-      p2Dice.classList.add("active"),
+    ? (p1DiceRoll(),
       player1Score >= 20
         ? ((message.textContent = `${p1Local} has won! 🥳`),
           btnVisibilityToggle())
         : (message.textContent = `${p2Local}'s Turn`))
-    : ((p2Dice.textContent = diceRoll),
-      (player2Score += diceRoll),
-      scoreSync(),
-      diceClass(),
+    : (p2DiceRoll(),
       player2Score >= 20
         ? ((message.textContent = `${p2Local} has won! 🥳`),
           btnVisibilityToggle())
@@ -99,3 +93,27 @@ document.getElementById("close-modal").addEventListener("click", function () {
   localStorage.setItem("p2", player2Name);
   message.textContent = `${player1Name}'s Turn`;
 });
+
+function p1DiceRoll() {
+  p1Dice.innerHTML = "";
+  const diceRoll = Math.floor(Math.random() * 6) + 1;
+  for (let i = 0; i < diceRoll; i++) {
+    p1Dice.innerHTML += `<span class="pip"></span>`;
+  }
+  player1Score += diceRoll;
+  scoreSync();
+  p1Dice.classList.remove("active");
+  p2Dice.classList.add("active");
+}
+
+function p2DiceRoll() {
+  p2Dice.innerHTML = "";
+  const diceRoll = Math.floor(Math.random() * 6) + 1;
+  for (let i = 0; i < diceRoll; i++) {
+    p2Dice.innerHTML += `<span class="pip"></span>`;
+  }
+  player2Score += diceRoll;
+  scoreSync();
+  p2Dice.classList.remove("active");
+  p1Dice.classList.add("active");
+}

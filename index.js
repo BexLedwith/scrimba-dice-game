@@ -27,16 +27,21 @@ function scoreSync() {
   p2Score.textContent = player2Score;
 }
 
-function diceClass() {
+function diceClass1() {
   p2Dice.classList.remove("active");
   p1Dice.classList.add("active");
+}
+
+function diceClass2() {
+  p2Dice.classList.add("active");
+  p1Dice.classList.remove("active");
 }
 
 function reset() {
   player1Score = 0;
   player2Score = 0;
   scoreSync();
-  player1Turn = true;
+  firstTurn();
   p1Dice.innerHTML = "";
   p2Dice.innerHTML = "";
   rollBtn.style.display = "block";
@@ -44,7 +49,6 @@ function reset() {
   document.getElementById("overlay").style.display = "block";
   p1Local = "";
   p2Local = "";
-  diceClass();
   // sessionStorage.clear();
 }
 
@@ -56,8 +60,7 @@ function p1DiceRoll() {
   }
   player1Score += diceRoll;
   scoreSync();
-  p1Dice.classList.remove("active");
-  p2Dice.classList.add("active");
+  diceClass2();
 }
 
 function p2DiceRoll() {
@@ -68,8 +71,17 @@ function p2DiceRoll() {
   }
   player2Score += diceRoll;
   scoreSync();
-  p2Dice.classList.remove("active");
-  p1Dice.classList.add("active");
+  diceClass1();
+}
+
+function firstTurn() {
+  const coinFlip = Math.floor(Math.random() * 2) + 1;
+  coinFlip > 1
+    ? ((player1Turn = false), diceClass2())
+    : ((player1Turn = true), diceClass1());
+  player1Turn
+    ? (message.textContent = `${p1Local}'s Turn`)
+    : (message.textContent = `${p2Local}'s Turn`);
 }
 
 // modal button
@@ -81,11 +93,8 @@ document.getElementById("close-modal").addEventListener("click", function () {
   p2Name.textContent = player2Name;
   p1Local = player1Name;
   p2Local = player2Name;
-  message.textContent = `${player1Name}'s Turn`;
+  firstTurn();
 });
-
-// event listeners
-// 1. Find out which players turn it is
 
 // 3. Switch the turn back to the other player
 

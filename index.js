@@ -13,8 +13,8 @@ const rollBtn = document.getElementById("rollBtn");
 const resetBtn = document.getElementById("resetBtn");
 const p1Name = document.getElementById("p1-name");
 const p2Name = document.getElementById("p2-name");
-const p2Local = sessionStorage.getItem("p2");
-const p1Local = sessionStorage.getItem("p1");
+let p2Local = "";
+let p1Local = "";
 const pipTemplate = `<span class="pip></span>`;
 
 function btnVisibilityToggle() {
@@ -41,8 +41,11 @@ function reset() {
   p2Dice.innerHTML = "";
   rollBtn.style.display = "block";
   resetBtn.style.display = "none";
-  sessionStorage.clear();
   document.getElementById("overlay").style.display = "block";
+  p1Local = "";
+  p2Local = "";
+  diceClass();
+  // sessionStorage.clear();
 }
 
 function p1DiceRoll() {
@@ -68,6 +71,18 @@ function p2DiceRoll() {
   p2Dice.classList.remove("active");
   p1Dice.classList.add("active");
 }
+
+// modal button
+document.getElementById("close-modal").addEventListener("click", function () {
+  document.getElementById("overlay").style.display = "none";
+  const player1Name = document.getElementById("player-1-name").value;
+  const player2Name = document.getElementById("player-2-name").value;
+  p1Name.textContent = player1Name;
+  p2Name.textContent = player2Name;
+  p1Local = player1Name;
+  p2Local = player2Name;
+  message.textContent = `${player1Name}'s Turn`;
+});
 
 // event listeners
 // 1. Find out which players turn it is
@@ -104,16 +119,4 @@ rollBtn.addEventListener("click", function () {
 
 resetBtn.addEventListener("click", function () {
   reset();
-});
-
-// modal button
-document.getElementById("close-modal").addEventListener("click", function () {
-  document.getElementById("overlay").style.display = "none";
-  const player1Name = document.getElementById("player-1-name").value;
-  const player2Name = document.getElementById("player-2-name").value;
-  p1Name.textContent = player1Name;
-  p2Name.textContent = player2Name;
-  sessionStorage.setItem("p1", player1Name);
-  sessionStorage.setItem("p2", player2Name);
-  message.textContent = `${player1Name}'s Turn`;
 });
